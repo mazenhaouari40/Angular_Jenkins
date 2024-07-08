@@ -9,11 +9,27 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                sh 'chmod -R +rwx ./jenkins/scripts/deliver.sh'
-                sh 'chmod -R +rwx ./jenkins/scripts/kill.sh'
-                sh './jenkins/scripts/deliver.sh'
+                script {
+                    echo 'Checking if deliver.sh exists'
+                    if (fileExists('./jenkins/scripts/deliver.sh')) {
+                        echo 'deliver.sh found, setting execute permissions'
+                        sh 'chmod +x ./jenkins/scripts/deliver.sh'
+                        sh './jenkins/scripts/deliver.sh'
+                    } else {
+                        error 'deliver.sh does not exist'
+                    }
+                }
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
+                script {
+                    echo 'Checking if kill.sh exists'
+                    if (fileExists('./jenkins/scripts/kill.sh')) {
+                        echo 'kill.sh found, setting execute permissions'
+                        sh 'chmod +x ./jenkins/scripts/kill.sh'
+                        sh './jenkins/scripts/kill.sh'
+                    } else {
+                        error 'kill.sh does not exist'
+                    }
+                }
             }
         }
     }
