@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools {nodejs "NODEJS"}
+    tools { nodejs 'NODEJS' }
     stages {
         stage('Build') {
             steps {
@@ -9,9 +9,14 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                bat './jenkins/scripts/deliver.bat'
+                // Use Windows-style paths and correct command
+                bat 'jenkins\\scripts\\deliver.bat'
+                
+                // Wait for user input
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                bat './jenkins/scripts/kill.bat'
+                
+                // Ensure the batch file exists and is executable
+                bat 'jenkins\\scripts\\kill.bat'
             }
         }
     }
