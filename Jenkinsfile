@@ -2,21 +2,21 @@ pipeline {
     agent any
     tools { nodejs 'NODEJS' }
     stages {
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
                 bat 'npm install'
             }
         }
-        stage('Deliver') {
+        stage('Build') {
             steps {
-                // Use Windows-style paths and correct command
-                bat 'jenkins\\scripts\\deliver.bat'
-                
-                // Wait for user input
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                
-                // Ensure the batch file exists and is executable
-                bat 'jenkins\\scripts\\kill.bat'
+                bat 'ng build'
+            }
+        }
+        stage('Serve') {
+            steps {
+                bat 'ng serve &'
+                echo 'Now...'
+                echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
             }
         }
     }
