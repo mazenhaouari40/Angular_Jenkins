@@ -10,23 +10,12 @@ pipeline {
         stage('Deliver') {
             steps {
                 bat 'npm run ng build'
-                bat 'start /B npm run ng serve'
+                bat 'start /B npm run ng serve & echo %PROCESS_ID% > angular-server.pid'
                 echo 'Now...'
-                input message: 'Finished using the website? (Click "Proceed" to continue)'
+                input message: 'Finished using the website? (Click "Proceed" to continue)'  
 
-                 bat '''
-                  REM Check if .pidfile exists
-                  if not exist .pidfile (
-                      echo .pidfile not found!
-                      exit /b 1
-                  )
-                  
-                  REM Read the PID from the .pidfile
-                  set /p PID=<.pidfile
-                  
-                  REM Kill the process with the specified PID
-                  taskkill /PID %PID% /
-                '''
+                def pid = readFile('angular-server.pid').trim()
+                bat "taskkill /F /PID ${pid}"
             }
         }
     }
