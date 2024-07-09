@@ -15,17 +15,12 @@ pipeline {
                 echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
             }
         }
-      stage('Wait for User Input') {
+      stage('Kill Process') {
             steps {
-                script {
                     input message: 'Finished using the website? (Click "Proceed" to continue)'
-                }
+                    bat 'jenkins\\scripts\\kill.bat'
             }
         }
-        stage('Kill') {
-            steps {
-                bat 'jenkins\\scripts\\kill.bat'
-            }
-        }
+
     }
 }
