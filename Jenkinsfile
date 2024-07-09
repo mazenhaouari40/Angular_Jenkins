@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Kill') {
             steps {
-                    bat 'kill.bat'
+                    bat 'jenkins\\scripts\\kill.bat'
             }
         }
     }
