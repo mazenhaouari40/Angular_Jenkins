@@ -14,8 +14,7 @@ pipeline {
         }
         stage('Serve') {
             steps {
-                // Start the Angular application in a separate process and write the PID to a file
-                bat 'start /b npm run ng serve > .pidfile 2>&1'
+                bat 'start npm run ng serve '
                 echo 'Now...'
                 echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
             }
