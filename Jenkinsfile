@@ -15,6 +15,7 @@ pipeline {
                 echo 'Now...'
                 echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
                 input message: 'Finished using the website? (Click "Proceed" to continue)'  
+              bat 'npx kill-port 4200'
             }
         }
     }
