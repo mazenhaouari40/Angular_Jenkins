@@ -9,12 +9,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'ng build'
+                bat 'npm run ng build'
             }
         }
         stage('Serve') {
             steps {
-                bat 'ng serve &'
+                bat 'npm run ng serve &'
                 echo 'Now...'
                 echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
             }
