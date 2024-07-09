@@ -16,7 +16,7 @@ pipeline {
             steps {
                 bat 'start npm run ng serve '
                 echo 'Now...'
-                echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
+                input message: 'Finished using the website? (Click "Proceed" to continue)'
             }
         }
         stage('Kill Process') {
