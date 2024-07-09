@@ -16,12 +16,13 @@ pipeline {
                 '''
                 echo 'Now...'
                 echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
-            }
-        }
-      stage('Kill Process') {
-            steps {
-                    input message: 'Finished using the website? (Click "Proceed" to continue)'
-                    bat 'jenkins\\scripts\\kill.bat'
+
+                // Lire le contenu du fichier .pidfile dans une variable
+                    bat '''
+                    set /p PID=<.pidfile
+                    REM Terminer le processus avec le PID lu
+                    taskkill /PID %PID%
+                    '''
             }
         }
 
