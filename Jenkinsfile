@@ -7,18 +7,14 @@ pipeline {
                 bat 'npm install'
             }
         }
-        stage('Build & serve') {
+        stage('Deliver') {
             steps {
                 bat 'npm run ng build'
                 bat 'start npm run ng serve '
                 echo 'Now...'
                 echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
-
-
             }
         }
-
-
       stage('Wait for User Input') {
             steps {
                 script {
@@ -26,18 +22,10 @@ pipeline {
                 }
             }
         }
-        stage('Cleanup') {
+        stage('Kill') {
             steps {
-                script {
-                    // Read the PID from the .pidfile
-                    def pid = readFile('.pidfile').trim()
-                    // Kill the process
-                    bat "taskkill /PID ${pid} /F"
-                }
+                    bat 'kill-process.bat'
             }
         }
-
-      
-
     }
 }
