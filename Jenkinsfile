@@ -7,26 +7,27 @@ pipeline {
                 bat 'npm install'
             }
         }
-        stage('Deliver') {
+        stage('Build') {
             steps {
                 bat 'npm run ng build'
-                bat '''
-                start npm run ng serve
-                echo %PROCESS_ID% > .pidfile
-                '''
+            }
+        }
+        stage('Serve') {
+            steps {
+                // Start the Angular application in a separate process and write the PID to a file
+                bat 'start /b npm run ng serve > .pidfile 2>&1'
                 echo 'Now...'
                 echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
             }
         }
-      stage('kill'){
-          steps{
-                // Lire le contenu du fichier .pidfile dans une variable
-                    bat '''
-                    set /p PID=<.pidfile
-                    REM Terminer le processus avec le PID lu
-                    taskkill /PID %PID%
-                    '''
-          }
-      }
+        stage('Kill Process') {
+            steps {
+                script {
+                    // Read PID from .pidfile and terminate the process
+                    def pid = bat(script: 'type .pidfile', returnStdout: true).trim()
+                    bat "taskkill /PID ${pid} /F"
+                }
+            }
+        }
     }
 }
