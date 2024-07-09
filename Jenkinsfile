@@ -9,6 +9,7 @@ pipeline {
         }
         stage('Deliver') {
             steps {
+              script{
                 bat 'npm run ng build'
                 bat 'start /B npm run ng serve & echo %PROCESS_ID% > angular-server.pid'
                 echo 'Now...'
@@ -16,7 +17,7 @@ pipeline {
 
                 def pid = readFile('angular-server.pid').trim()
                 bat "taskkill /F /PID ${pid}"
-            }
+            }}
         }
     }
 }
