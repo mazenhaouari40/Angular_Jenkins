@@ -1,16 +1,12 @@
 @echo off
-setlocal
-
-rem Read the PID from .pidfile
-set /p PID=<.pidfile
-
-rem Check if PID is not empty
-if not "%PID%"=="" (
-    echo Terminating process with PID %PID%
-    rem Terminate the process
-    taskkill /PID %PID% /F
-) else (
-    echo No PID found in .pidfile
+REM Check if .pidfile exists
+if not exist .pidfile (
+    echo .pidfile not found!
+    exit /b 1
 )
 
-endlocal
+REM Read the PID from the .pidfile
+set /p PID=<.pidfile
+
+REM Kill the process with the specified PID
+taskkill /PID %PID% /F
