@@ -16,15 +16,17 @@ pipeline {
                 '''
                 echo 'Now...'
                 echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
-
+            }
+        }
+      stage('kill'){
+          steps{
                 // Lire le contenu du fichier .pidfile dans une variable
                     bat '''
                     set /p PID=<.pidfile
                     REM Terminer le processus avec le PID lu
                     taskkill /PID %PID%
                     '''
-            }
-        }
-
+          }
+      }
     }
 }
