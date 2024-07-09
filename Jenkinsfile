@@ -21,12 +21,15 @@ pipeline {
 
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 
-                REM Lire le contenu du fichier .pidfile dans une variable
-                set /p PID=<.pidfile
-                
-                REM Terminer le processus avec le PID lu
-                taskkill /PID %PID%
+                    // Demander à l'utilisateur s'il a terminé d'utiliser le site web
+                    input message: 'Finished using the web site? (Click "Proceed" to continue)'
 
+                    // Lire le contenu du fichier .pidfile dans une variable
+                    bat '''
+                    set /p PID=<.pidfile
+                    REM Terminer le processus avec le PID lu
+                    taskkill /PID %PID%
+                    '''
             }
         }
     }
