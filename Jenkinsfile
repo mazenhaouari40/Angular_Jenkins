@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Kill') {
             steps {
-                bat 'FOR /F "tokens=*" %i IN (.pidfile) DO (taskkill /PID %i /F)'
+                bat 'jenkins\\scripts\\kill.bat'
             }
         }
     }
