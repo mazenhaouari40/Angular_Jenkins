@@ -11,11 +11,7 @@ pipeline {
             steps {
              
                 bat 'npm run ng build'
-              bat '''
-              start /B npm run ng serve
-              timeout /T 1
-              echo %PROCESS_ID% > .pidfile
-                '''
+              bat 'start /B npm run ng serve'
                 echo 'Now...'
                 echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
                 input message: 'Finished using the website? (Click "Proceed" to continue)'  
