@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Kill') {
             steps {
-                    bat 'kill-process.bat'
+                    bat 'kill.bat'
             }
         }
     }
