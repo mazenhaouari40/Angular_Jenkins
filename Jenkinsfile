@@ -7,30 +7,37 @@ pipeline {
                 bat 'npm install'
             }
         }
-        stage('Build') {
+        stage('Build & serve') {
             steps {
                 bat 'npm run ng build'
-            }
-        }
-        stage('Serve') {
-            steps {
-              
                 bat 'npm run ng serve '
                 echo 'Now...'
                 echo 'Visit http://localhost:4200 to see your Node.js/Angular application in action.'
 
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                
-                    // Demander à l'utilisateur s'il a terminé d'utiliser le site web
-                    input message: 'Finished using the web site? (Click "Proceed" to continue)'
 
-                    // Lire le contenu du fichier .pidfile dans une variable
-                    bat '''
-                    set /p PID=<.pidfile
-                    REM Terminer le processus avec le PID lu
-                    taskkill /PID %PID%
-                    '''
             }
         }
+
+
+      stage('Wait for User Input') {
+            steps {
+                script {
+                    input message: 'Finished using the website? (Click "Proceed" to continue)'
+                }
+            }
+        }
+        stage('Cleanup') {
+            steps {
+                script {
+                    // Read the PID from the .pidfile
+                    def pid = readFile('.pidfile').trim()
+                    // Kill the process
+                    bat "taskkill /PID ${pid} /F"
+                }
+            }
+        }
+
+      
+
     }
 }
