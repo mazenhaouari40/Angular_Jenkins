@@ -1,0 +1,33 @@
+<h1>User</h1>
+<div class="border" >
+    <button class="btn btn-md btn-outline-primary" routerLink="/model">
+      <i class="fa fa-user"></i>New User</button>
+</div>
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>E-mail</th>
+                <th>nom et prenom</th>
+                <th>num_tel</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user.id}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.nom}}</td>
+                <td>{{user.num_tel}}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning" [routerLink]="['/edit', user.id]">
+                      <i class="fa fa-edit"></i>Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(user.id)">
+                      <i class="fa fa-remove"></i>Delete</button>
+                  </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+

@@ -1,0 +1,33 @@
+<!-- user-modal.component.html -->
+<div class="container">
+  <div class="formcontainer">
+    <h1 *ngIf="isAddMode">Add User</h1>
+    <h1 *ngIf="!isAddMode">Edit User</h1>
+
+    <br>
+    <form (ngSubmit)="isAddMode ? onSubmit() : edit()" #userForm="ngForm">
+
+
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input id="nom" name="nom" class="form-control" [(ngModel)]="user.nom" required>
+      </div>
+
+      <div class="form-group">
+        <label for="e_mail">e_mail</label>
+        <input id="e_mail" name="e_mail" class="form-control" [(ngModel)]="user.email" required email>
+      </div>
+
+      <div class="form-group">
+        <label for="num_tel">Numero tel</label>
+        <input id="num_tel" name="num_tel" class="form-control" [(ngModel)]="user.num_tel" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary" *ngIf="isAddMode">Submit</button>
+      <button type="submit" class="btn btn-primary" *ngIf="!isAddMode">Editer</button>
+      <button type="button" class="btn btn-info" >Reset</button>
+    </form>
+
+  </div>
+</div>
+
