@@ -9,7 +9,7 @@ pipeline {
         }
      stage('Testing Stage') {
             steps {
-                bat 'ng test --no-watch --code-coverage'
+                bat 'npm ng test --no-watch --code-coverage'
             }
         }
         stage('Deliver') {
