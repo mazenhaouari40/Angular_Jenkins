@@ -26,7 +26,7 @@ export class User{
 
 
 export class UserComponent implements OnInit {
-  private apiUrl = 'http://localhost:8081/user'; // Replace with your API URL
+  private apiUrl = 'http://localhost:8081/user'; 
   users: User[] = [];
   constructor(private http: HttpClient, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -38,9 +38,10 @@ export class UserComponent implements OnInit {
     );
   }
 
-  getData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getData(): Observable<any[]> {
+    return this.http.get<any[]>("http://localhost:8081/user");
   }
+
 
   delete(id: number): void {
     this.http.delete(`http://localhost:8081/user/delete/${id}`)

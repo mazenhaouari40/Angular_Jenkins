@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WelcomeComponent } from './welcome.component';
+import { ActivatedRoute } from '@angular/router';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
@@ -8,7 +9,10 @@ describe('WelcomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WelcomeComponent]
+      imports: [WelcomeComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: { snapshot: { params: { id: '1' } } } }
+      ]
     })
     .compileComponents();
     
@@ -19,5 +23,11 @@ describe('WelcomeComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+    it(`should have the 'Mazen' title`, () => {
+    const fixture = TestBed.createComponent(WelcomeComponent);
+    const app = fixture.componentInstance;
+    expect(app.name).toEqual('mazen');
   });
 });

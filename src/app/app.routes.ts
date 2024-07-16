@@ -9,8 +9,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 export const routes: Routes = [
-    {path : '', component : LoginComponent},
-    {path : 'login',component : LoginComponent},
+    {path : '',component : WelcomeComponent},
+     {path : 'login',component : LoginComponent},
     {path : 'welcome/:name', component: WelcomeComponent},
     {path : 'user', component: UserComponent},
     {path : 'model', component: UserModalComponent},

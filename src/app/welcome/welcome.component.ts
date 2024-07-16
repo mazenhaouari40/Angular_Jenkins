@@ -15,7 +15,6 @@ name ='mazen'
 
   ngOnInit(){
     this.name = this.route.snapshot.params['name']
-
   }
 
 }
