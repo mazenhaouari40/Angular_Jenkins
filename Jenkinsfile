@@ -7,9 +7,13 @@ pipeline {
                 bat 'npm install'
             }
         }
+     stage('Testing Stage') {
+            steps {
+                bat 'npm test --no-watch --code-coverage'
+            }
+        }
         stage('Deliver') {
             steps {
-             
                 bat 'npm run ng build'
               bat 'start /B npm run ng serve'
                 echo 'Now...'
