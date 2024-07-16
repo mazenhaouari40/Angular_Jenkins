@@ -9,9 +9,8 @@ pipeline {
         }
      stage('Testing Stage') {
             steps {
-                bat 'npm run ng test --no-watch --code-coverage'
-                input message: 'Finished using the website? (Click "Proceed" to continue)'  
-
+                // bat 'npm run ng test --no-watch --code-coverage'
+              npm run test -- --watch=false --code-coverage
             }
         }
         stage('Deliver') {
