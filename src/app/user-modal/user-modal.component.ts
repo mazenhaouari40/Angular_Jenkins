@@ -4,8 +4,11 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';  // Importez FormsModule ici
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { Injectable } from '@angular/core';
 
-
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-user-modal',
   standalone: true,
@@ -22,6 +25,7 @@ testId= 0;
     this.isAddMode = !this.testId;
     console.log('isAddMode:', this.isAddMode);
     console.log(this.testId);
+  
 }
 
   user = {
@@ -30,35 +34,35 @@ testId= 0;
       num_tel: ''
     };
 
-  isAddMode = true;
+    isAddMode = true;
   constructor(
     private http: HttpClient,
      private router: Router,
      private route: ActivatedRoute,
-  ) { }
+  ) { 
+  }
 
-  onSubmit(): void {
+  onSubmit() {
     this.http.post('http://localhost:8081/user/add', this.user)
       .subscribe(response => {
         this.router.navigate(['/user']);
       });
   }
 
+
   edit(): void {
-    
   const user_put={
     id : this.testId,
     nom: this.user.nom,
     email: this.user.email,
     num_tel: this.user.num_tel
   }
-
     // this.http.put('http://localhost:8081/edit/${this.testId}', user_put)
     this.http.put(`http://localhost:8081/user/edit/${this.testId }` , user_put)
     .subscribe(response => {
       console.log(this.testId);
       this.router.navigate(['/user']);
     });
-
   }
+
 }

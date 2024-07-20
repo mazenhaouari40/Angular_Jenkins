@@ -42,7 +42,6 @@ export class UserComponent implements OnInit {
     return this.http.get<any[]>("http://localhost:8081/user");
   }
 
-
   delete(id: number): void {
     this.http.delete(`http://localhost:8081/user/delete/${id}`)
       .subscribe(

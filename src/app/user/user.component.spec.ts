@@ -8,7 +8,6 @@ describe('UserComponent', () => {
   let component: UserComponent;
   let fixture: ComponentFixture<UserComponent>;
   let controller: HttpTestingController;
-  let httpTestingController: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -21,7 +20,6 @@ describe('UserComponent', () => {
     fixture = TestBed.createComponent(UserComponent);
     component = fixture.componentInstance;
     controller = TestBed.inject(HttpTestingController);
-
     fixture.detectChanges();
   });
 
@@ -31,5 +29,20 @@ describe('UserComponent', () => {
   });
 
 
+  it('should create an instance with the correct properties', () => {
+    const id = 1;
+    const nom = 'John Doe';
+    const email = 'john.doe@example.com';
+    const num_tel = '123-456-7890';
+
+    const user = new User(id, nom, email, num_tel);
+    expect(user.id).toBe(id);
+    expect(user.nom).toBe(nom);
+    expect(user.email).toBe(email);
+    expect(user.num_tel).toBe(num_tel);
+  });
   
+
+
+
 });
