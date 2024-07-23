@@ -26,7 +26,9 @@ export class User{
 
 
 export class UserComponent implements OnInit {
-  private apiUrl = 'http://localhost:8081/user'; 
+  //private apiUrl = 'http://localhost:8081'; 
+  private apiUrl = 'https://backend-jenkins.onrender.com'; 
+
   users: User[] = [];
   constructor(private http: HttpClient, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -39,11 +41,11 @@ export class UserComponent implements OnInit {
   }
 
   getData(): Observable<any[]> {
-    return this.http.get<any[]>("http://localhost:8081/user");
+    return this.http.get<any[]>(this.apiUrl+"/user");
   }
 
   delete(id: number): void {
-    this.http.delete(`http://localhost:8081/user/delete/${id}`)
+    this.http.delete(this.apiUrl+`/user/delete/${id}`)
       .subscribe(
         response => {
           console.log('User deleted', response);

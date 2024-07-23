@@ -19,6 +19,8 @@ import { Injectable } from '@angular/core';
 
 export class UserModalComponent implements OnInit {
 testId= 0;
+//private apiUrl = 'http://localhost:8081'; 
+private apiUrl = 'https://backend-jenkins.onrender.com'; 
 
   ngOnInit(): void {
     this.testId = this.route.snapshot.params['id'];
@@ -43,7 +45,7 @@ testId= 0;
   }
 
   onSubmit() {
-    this.http.post('http://localhost:8081/user/add', this.user)
+    this.http.post(this.apiUrl+'/user/add', this.user)
       .subscribe(response => {
         this.router.navigate(['/user']);
       });
@@ -58,7 +60,7 @@ testId= 0;
     num_tel: this.user.num_tel
   }
     // this.http.put('http://localhost:8081/edit/${this.testId}', user_put)
-    this.http.put(`http://localhost:8081/user/edit/${this.testId }` , user_put)
+    this.http.put(this.apiUrl+`/edit/${this.testId }`, user_put)
     .subscribe(response => {
       console.log(this.testId);
       this.router.navigate(['/user']);
