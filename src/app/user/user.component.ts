@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router,ActivatedRoute } from '@angular/router';
+import { environment } from '../../Environment/environment.prod';
 
 
 export class User{
@@ -27,7 +28,9 @@ export class User{
 
 export class UserComponent implements OnInit {
   //private apiUrl = 'http://localhost:8081'; 
-  private apiUrl = 'https://backend-jenkins.onrender.com'; 
+ // private apiUrl = 'https://backend-jenkins.onrender.com'; 
+  private apiUrl = environment.server; 
+
 
   users: User[] = [];
   constructor(private http: HttpClient, private router: Router, private activatedRoute: ActivatedRoute) { }

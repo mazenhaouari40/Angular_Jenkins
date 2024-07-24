@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';  // Importez FormsModule ici
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { environment } from '../../Environment/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ import { Injectable } from '@angular/core';
 export class UserModalComponent implements OnInit {
 testId= 0;
 //private apiUrl = 'http://localhost:8081'; 
-private apiUrl = 'https://backend-jenkins.onrender.com'; 
+//private apiUrl = 'https://backend-jenkins.onrender.com'; 
+private apiUrl = environment.server; 
 
   ngOnInit(): void {
     this.testId = this.route.snapshot.params['id'];
@@ -59,8 +61,7 @@ private apiUrl = 'https://backend-jenkins.onrender.com';
     email: this.user.email,
     num_tel: this.user.num_tel
   }
-    // this.http.put('http://localhost:8081/edit/${this.testId}', user_put)
-    this.http.put(this.apiUrl+`/edit/${this.testId }`, user_put)
+    this.http.put(this.apiUrl+`/user/edit/${this.testId}`, user_put)
     .subscribe(response => {
       console.log(this.testId);
       this.router.navigate(['/user']);
